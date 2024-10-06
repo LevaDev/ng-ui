@@ -1,0 +1,39 @@
+<div [ngClass]="'component card'" [class]="styleClass" [ngStyle]="style">
+	<div class="card-body">
+		<div class="card-header">
+			@if (!headerTemplate) { @if (showDragHandle) {
+			<div class="drag-handle">
+				<i class="pi pi-arrows-alt"></i>
+			</div>
+			} @if (title) {
+			<div class="flex items-center gap-3">
+				<h2>{{ title }}</h2>
+
+				@if (tooltip || titleTooltip) {
+				<ats-tooltip [tooltipText]="tooltip || titleTooltip"></ats-tooltip>
+				}
+			</div>
+			} @if (actionsTemplate) {
+			<div class="actions">
+				<ng-container [ngTemplateOutlet]="actionsTemplate"></ng-container>
+			</div>
+			} } @else {
+			<ng-content select="header"></ng-content>
+			<ng-container [ngTemplateOutlet]="headerTemplate"></ng-container>
+			}
+		</div>
+
+		<div class="card-content">
+			<ng-content></ng-content>
+			<ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	@if (footerTemplate) {
+	<div class="card-footer">
+		<ng-content select="footer"></ng-content>
+		<ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+	</div>
+	}
+</div>
